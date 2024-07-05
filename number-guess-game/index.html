@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Number-Game</title>
+    <link rel="icon" href="./img/favicon.png" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- 들어갔을때의 첫화면 -->
+    <div id="start-container">
+      <div class="start-mainText">
+        <button id="start-button">GAME START</button>
+        <div class="game-rule">
+          <p>> <span style="color: rgb(255, 230, 0);">1부터 50 사이의 </span>숫자를 입력 </p>
+          <p>> 기회는 총 <span style="color: rgb(255, 230, 0);">5번</span></p>
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- 시작하기 버튼 클릭 시 -->
+    <div id="container">
+        <div class="mainText">
+            <p id="main-text-click">Random Number Game</p>
+        </div>
+  
+        <div class="playContainer">
+          <div id="result-area">결과는!?</div>
+          
+          <input type="number" id="user-input" />
+          <div id="chance-area">남은 횟수:5번</div>
+          
+          <div class="playReset-button">
+              <button id="play-button">GO</button>
+              <button id="reset-button">RESET</button>
+          </div>          
+        </div>
+      </div>
+    <script src="main.js"></script>
+  </body>
+</html>

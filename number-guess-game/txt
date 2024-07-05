@@ -1,0 +1,120 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Number-Game</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="container">
+      <h1>❤️랜덤번호 게임❤️</h1>
+
+      <div class="playContainer">
+
+        <div id="result-area">결과는!?</div>
+        <div id="chance-area">남은 횟수:5번</div>
+        <input type="number" id="user-input" />
+
+        <div class="playReset-button">
+            <button id="play-button">GO</button>
+            <button id="reset-button">RESET</button>
+        </div>
+       
+
+        
+      </div>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
+</html> -->
+
+
+
+
+-------------------
+
+
+// 랜덤 번호 지정
+// 유저가 번호를 입력한다 그리고 go 라는 버튼을 누름
+// 만약에 유저가 랜덤번호를 맞추면, 맞췄습니다!!
+// 랜덤번호가 < 유저번호 Down!!
+// 랜덤번호가 > 유저번호 UP!!
+// Reset 버튼을 누르면 게임이 리셋된다
+// 5번의 기회를 다쓰면 게임이 끝난다(더이상 추측 불가, 버튼이 disable)
+// 유저가 1~100 범위 밖에 숫자를 입력하면 알려준다. 기회를 깎지 않는다.
+// 유저가 이미 입력한 숫자를 또 입력하면, 알려준다, 기회를 깎지 않는다.
+
+
+
+let computerNum = 0;
+let userInput = document.getElementById("user-input");
+let playButton = document.getElementById("play-button");
+let resultArea = document.getElementById("result-area");
+let resetButton = document.getElementById("reset-button");
+let chances = 5;
+let gameOver = false;
+let chancesArea = document.getElementById("chance-area");
+let history = [];
+
+playButton.addEventListener("click", play);
+resetButton.addEventListener("click", reset);
+userInput.addEventListener("focus", function() {
+    userInput.value = "";
+})
+
+function pickRandomNum() {
+    // 숫자 0 ~ 49 까지의 랜덤 숫자인데 +1을 함으로써 1 ~ 50까지의 랜덤 숫자가 됌
+    computerNum = Math.floor(Math.random()*50)+1;
+    console.log("정답", computerNum);
+}
+
+function play() {
+    let userValue = userInput.value;
+
+    if (userValue < 1 || userValue > 50) {
+        resultArea.textContent = "1 ~ 50 까지의 숫자를 입력해주세요."
+
+        return;
+    }
+
+    if (history.includes(userValue)) {
+        resultArea.textContent = "이미 입력한 값입니다. 다른 값을 입력하세여."
+        
+        return;
+    }
+
+    chances --;
+    chancesArea.textContent = `남은 횟수:${chances}번`;
+
+    if(userValue < computerNum) {
+        resultArea.textContent = "👆👆👆";
+    } else if (userValue > computerNum) {
+        resultArea.textContent = "👇👇👇"
+    } else {
+        resultArea.textContent = "🎉🎊🎉🎊"
+        playButton.disabled = true;
+    }
+
+    history.push(userValue);
+    
+    
+    
+
+    if (chances < 1) {
+        gameOver = true;
+    }
+
+    if (gameOver == true) {
+        playButton.disabled = true;
+    }
+};
+
+function reset() {
+    userInput.value = "";
+    pickRandomNum();
+    resultArea.textContent = "결과는!"
+}
+
+pickRandomNum();
